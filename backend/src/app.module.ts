@@ -44,6 +44,7 @@ class SeedService implements OnApplicationBootstrap {
       url: process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/inventory',
       entities: ALL_ENTITIES,
       synchronize: process.env.DB_SYNC !== 'false',
+      extra: process.env.DB_POOL_MAX ? { max: +process.env.DB_POOL_MAX } : undefined,
     }),
     TypeOrmModule.forFeature(ALL_ENTITIES),
     JwtModule.register({ global: true, secret: jwtSecret, signOptions: { expiresIn: '12h' } }),
